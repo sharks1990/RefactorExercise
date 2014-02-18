@@ -24,7 +24,7 @@ public class Schedule {
 		try {
 			conn = DriverManager.getConnection(url, "root", "root");
 			Statement statement = conn.createStatement();
-			statement.executeUpdate("DELETE * FROM schedule;");
+			statement.executeUpdate("DELETE FROM schedule;");
 		} 
 		finally {
 			try { 
@@ -102,7 +102,7 @@ public class Schedule {
 			statement.executeUpdate("DELETE FROM schedule WHERE name = '" + name + "';");
 			for (int i = 0; i < schedule.size(); i++) {
 				Offering offering = (Offering) schedule.get(i);
-				statement.executeUpdate("INSERT INTO schedule VALUES('" + name + "','" + offering.getId() + "');");
+				statement.executeUpdate("INSERT INTO schedule (name, offeringId) VALUES('" + name + "','" + offering.getId() + "');");
 			}
 		} 
 		finally {

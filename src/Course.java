@@ -17,7 +17,7 @@ public class Course {
 			conn = DriverManager.getConnection(url, "root", "root");
 			Statement statement = conn.createStatement();
 			statement.executeUpdate("DELETE FROM course WHERE name = '" + name + "';");
-			statement.executeUpdate("INSERT INTO course VALUES ('" + name + "', '" + credits + "');");
+			statement.executeUpdate("INSERT INTO course (name, credits) VALUES ('" + name + "', '" + credits + "');");
 			return new Course(name, credits);
 		} 
 		finally {
@@ -55,7 +55,7 @@ public class Course {
 			conn = DriverManager.getConnection(url, "root", "root");
 			Statement statement = conn.createStatement();
 			statement.executeUpdate("DELETE FROM COURSE WHERE name = '" + name + "';");
-			statement.executeUpdate("INSERT INTO course VALUES('" + name + "','" + credits + "');");
+			statement.executeUpdate("INSERT INTO course (name, credits) VALUES('" + name + "','" + credits + "');");
 		} 
 		finally {
 			try { 
