@@ -1,5 +1,6 @@
 import java.sql.*;
-
+//Just left with getters and setters
+//Cut and paste create/find/update methods into CoursePersistence
 public class Course {
 	private String name;
 	private int credits;

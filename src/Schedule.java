@@ -4,133 +4,34 @@ import java.sql.*;
 public class Schedule {
 
 	String name;
+	
 	int credits = 0;
 	static final int minCredits = 12;
 	static final int maxCredits = 18;
-	boolean permission = false;
+	boolean additionalCreditsPermission = false;
 
-	ArrayList<Offering> schedule = new ArrayList<Offering>();
-
-	static String url = "jdbc:mysql://localhost:3306/refactoring";
-	static { 
-		try { 
-			Class.forName("com.mysql.jdbc.Driver"); 
-			}
-		catch (Exception ignored) {} 
-	}
-
-	public static void deleteAll() throws Exception {
-		Connection conn = null;
-		try {
-			conn = DriverManager.getConnection(url, "root", "root");
-			Statement statement = conn.createStatement();
-			statement.executeUpdate("DELETE FROM schedule;");
-		} 
-		finally {
-			try { 
-				conn.close(); 
-			} 
-			catch (Exception ignored) {}
-		}
-	}
-
-	public static Schedule create(String name) throws Exception {
-		Connection conn = null;
-		try {
-			conn = DriverManager.getConnection(url, "root", "root");
-			Statement statement = conn.createStatement();
-			statement.executeUpdate("DELETE FROM schedule WHERE name = '" + name + "';");
-			return new Schedule(name);
-		} 
-		finally {
-			try { 
-				conn.close(); 
-			} 
-			catch (Exception ignored) {}
-		}
-	}
-
-	public static Schedule find(String name) {
-		Connection conn = null;
-		try {
-			conn = DriverManager.getConnection(url, "root", "root");
-			Statement statement = conn.createStatement();
-			ResultSet result = statement.executeQuery("SELECT * FROM schedule WHERE Name= '" + name + "';");
-			Schedule schedule = new Schedule(name);
-			while (result.next()) {
-				int offeringId = result.getInt("OfferingId");
-				Offering offering = Offering.find(offeringId);
-				schedule.add(offering);
-			}
-			return schedule;
-		} 
-		catch (Exception ex) {
-			return null;
-		} 
-		finally {
-			try { 
-				conn.close(); 
-			} 
-			catch (Exception ignored) {}
-		}
-	}
-
-	public static Collection<Schedule> all() throws Exception {
-		ArrayList<Schedule> result = new ArrayList<Schedule>();
-		Connection conn = null;
-		try {
-			conn = DriverManager.getConnection(url, "root", "root");
-			Statement statement = conn.createStatement();
-			ResultSet results = statement.executeQuery("SELECT DISTINCT Name FROM schedule;");
-			while (results.next())
-			result.add(Schedule.find(results.getString("Name")));
-		} 
-		finally {
-			try { 
-				conn.close(); 
-			} 
-			catch (Exception ignored) {}
-		}
-		return result;
-	}
-
-	public void update() throws Exception {
-		Connection conn = null;
-		try {
-			conn = DriverManager.getConnection(url, "root", "root");
-			Statement statement = conn.createStatement();
-			statement.executeUpdate("DELETE FROM schedule WHERE name = '" + name + "';");
-			for (int i = 0; i < schedule.size(); i++) {
-				Offering offering = (Offering) schedule.get(i);
-				statement.executeUpdate("INSERT INTO schedule (name, offeringId) VALUES('" + name + "','" + offering.getId() + "');");
-			}
-		} 
-		finally {
-			try { 
-				conn.close(); 
-			} 
-			catch (Exception ignored) {}
-		}
-	}
+	ArrayList<Offering> offerings = new ArrayList<Offering>(); 
+   // named the array list to offering
+	
 
 	public Schedule(String name) {
 		this.name = name;
 	}
 
-	public void add(Offering offering) {
+	public void addOffering(Offering offering) {
 		credits += offering.getCourse().getCredits();
-		schedule.add(offering);
+		offering.add(offering);
 	}
 
-	public void authorizeOverload(boolean authorized) {
-		permission = authorized;
+	public void permitExtraCredits(boolean allow) {
+		additionalCreditsPermission = allow;
 	}
 
 	public List<String> analysis() {
 		ArrayList<String> result = new ArrayList<String>();
 		if (credits < minCredits)
 			result.add("Too few credits");
-		if (credits > maxCredits && !permission)
+		if (credits > maxCredits && !additionalCreditsPermission)
 			result.add("Too many credits");
 		checkDuplicateCourses(result);
 		checkOverlap(result);
@@ -138,9 +39,9 @@ public class Schedule {
 	}
 
 	public void checkDuplicateCourses(ArrayList<String> analysis) {
-		HashSet<Course> courses = new HashSet<Course>();
-		for (int i = 0; i < schedule.size(); i++) {
-			Course course = ((Offering) schedule.get(i)).getCourse();
+		List<Course> courses = new ArrayList<Course>();//changed to arraylist
+		for (Offering offering : offerings) {
+			Course course = offering.getCourse();
 			if (courses.contains(course))
 				analysis.add("Same course twice - " + course.getName());
 			courses.add(course);
@@ -148,11 +49,10 @@ public class Schedule {
 	}
 
 	public void checkOverlap(ArrayList<String> analysis) {
-		HashSet<String> times = new HashSet<String>();
-		for (Iterator<Offering> iterator = schedule.iterator(); iterator.hasNext();) {
-			Offering offering = (Offering) iterator.next();
-			String daysTimes = offering.getDaysTimes();
-			StringTokenizer tokens = new StringTokenizer(daysTimes, ",");
+		List<String> times = new ArrayList<String>();
+		for (Offering offering : offerings) {
+			StringTokenizer tokens = new StringTokenizer(offering.getDaysTimes(), ",");
+			
 			while (tokens.hasMoreTokens()) {
 				String dayTime = tokens.nextToken();
 				if (times.contains(dayTime))
@@ -163,6 +63,6 @@ public class Schedule {
 	}
 
 	public String toString() {
-		return "Schedule " + name + ": " + schedule;
+		return "Schedule " + name + ": " + offerings;
 	}
 }

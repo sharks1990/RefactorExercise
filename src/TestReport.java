@@ -1,3 +1,4 @@
+
 import junit.framework.TestCase;
 import java.util.List;
 import java.util.Collection;
@@ -9,7 +10,7 @@ public class TestReport extends TestCase {
 	}
 
 	public void testEmptyReport() throws Exception {
-		Schedule.deleteAll();
+		SchedulePersistence.deleteAll(); //Delete all now found in SchedulePersistence
 		Report report = new Report();
 		StringBuffer buffer = new StringBuffer();
 		report.write(buffer);
@@ -17,7 +18,7 @@ public class TestReport extends TestCase {
 	}
 
 	public void testReport() throws Exception {
-		Schedule.deleteAll();
+		SchedulePersistence.deleteAll();
 		Course cs101 = Course.create("CS101", 3);
 		cs101.update();
 		Offering off1 = Offering.create(cs101, "M10");
