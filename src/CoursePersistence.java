@@ -1,9 +1,9 @@
-import java.sql.*;
+ import java.sql.*;
 //Created a new class and called it Course Persistence 
 
 public class CoursePersistence { 
-	private String name;
-	private int credits;
+	private static String name;
+	private static int credits;
 	static String url = "jdbc:mysql://localhost:3306/refactoring";//Changed the localhost address
 	static { 
 		try { 
@@ -56,7 +56,7 @@ public class CoursePersistence {
 			conn = DriverManager.getConnection(url, "root", "root");
 			Statement statement = conn.createStatement();
 			statement.executeUpdate("DELETE FROM COURSE WHERE name = '" + course.getName() + "';");
-			statement.executeUpdate("INSERT INTO course VALUES('" + course.getName() + "','" + course.getCredits() + "');");//getting errors here
+			statement.executeUpdate("INSERT INTO course (name, credits) VALUES('" + name + "','" + credits + "');");//getting errors here
 			} 
 		finally {
 			try { 
