@@ -1,5 +1,6 @@
 
 import junit.framework.TestCase;
+
 import java.util.List;
 import java.util.Collection;
 
@@ -18,20 +19,21 @@ public class TestReport extends TestCase {
 	}
 
 	public void testReport() throws Exception {
-		SchedulePersistence.deleteAll();
-		Course cs101 = Course.create("CS101", 3);
-		cs101.update();
-		Offering off1 = Offering.create(cs101, "M10");
-		off1.update();
-		Offering off2 = Offering.create(cs101, "T9");
-		off2.update();
-		Schedule s = Schedule.create("Bob");
-		s.add(off1);
-		s.add(off2);
-		s.update();
-		Schedule s2 = Schedule.create("Alice");
-		s2.add(off1);
-		s2.update();
+		// name changes need... Course to CoursePersistence and Schedule to SchedulePersistence
+		SchedulePersistence.deleteAll();	
+		Course cs101 = CoursePersistence.create("CS101", 3);	
+		CoursePersistence.update(cs101);
+		Offering off1 = OfferingPersistence.create(cs101, "M10");	
+		OfferingPersistence.update(off1);
+		Offering off2 = OfferingPersistence.create(cs101, "T9");	
+		OfferingPersistence.update(off2);
+		Schedule s = SchedulePersistence.create("Bob");	
+		s.offerings.add(off1);
+		s.offerings.add(off2);
+		SchedulePersistence.update(s);
+		Schedule s2 = SchedulePersistence.create("Alice");	
+		s2.offerings.add(off1);
+		SchedulePersistence.update(s2);
 		Report report = new Report();
 		StringBuffer buffer = new StringBuffer();
 		report.write(buffer);

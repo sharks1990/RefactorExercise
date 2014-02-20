@@ -41,8 +41,7 @@ public class OfferingPersistence {
 			ResultSet result = statement.executeQuery("SELECT * FROM offering WHERE id =" + id + ";");
 			if (result.next() == false)
 				return null;
-			String courseName = result.getString("name");
-			Course course = CoursePersistence.find(courseName);
+			Course course = CoursePersistence.find(result.getString("Course"));	
 			String dateTime = result.getString("DaysTimes");
 			conn.close();
 			return new Offering(id, course, dateTime);
@@ -55,13 +54,13 @@ public class OfferingPersistence {
 		}
 	}
 
-	public void update() throws Exception {
+	public static void update(Offering offering) throws Exception {	
 		Connection conn = null;
 		try {
-			conn = DriverManager.getConnection(url, "root", "root");
+			conn = DriverManager.getConnection(url, "root", "root");	
 			Statement statement = conn.createStatement();
-			statement.executeUpdate("DELETE FROM Offering WHERE ID=" + offering.getId + ";");
-			statement.executeUpdate("INSERT INTO Offering VALUES('" + newid + "','" + course.getName() + "','" + daysTimes + "');");
+			statement.executeUpdate("DELETE FROM Offering WHERE ID=" + offering.getId() + ";");
+			statement.executeUpdate("INSERT INTO Offering VALUES('" + offering.getId() + "','" + offering.getCourse().getName() + "','" + offering.getDaysTimes() + "');");
 		} 
 		finally {
 			try { 

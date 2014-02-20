@@ -50,13 +50,13 @@ public class CoursePersistence {
 		}
 	}
 
-	public void update() throws Exception {
+	public static void update(Course course) throws Exception {
 		Connection conn = null;
 		try {
 			conn = DriverManager.getConnection(url, "root", "root");
 			Statement statement = conn.createStatement();
-			statement.executeUpdate("DELETE FROM COURSE WHERE name = '" + name + "';");
-			statement.executeUpdate("INSERT INTO course (name, credits) VALUES('" + name + "','" + credits + "');");
+			statement.executeUpdate("DELETE FROM COURSE WHERE name = '" + course.getName() + "';");
+			statement.executeUpdate("INSERT INTO course VALUES('" + course.getName() + "','" + course.getCredits() + "');");
 		} 
 		finally {
 			try { 

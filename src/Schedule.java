@@ -17,6 +17,10 @@ public class Schedule {
 	public Schedule(String name) {
 		this.name = name;
 	}
+	
+	public String getName() {
+		return name;
+	}
 
 	public void addOffering(Offering offering) {
 		credits += offering.getCourse().getCredits();
