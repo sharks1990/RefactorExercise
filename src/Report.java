@@ -6,12 +6,10 @@ public class Report {
 
 	Hashtable<Integer, ArrayList<String>> offeringToName = new Hashtable<Integer, ArrayList<String>>();
 
-	public void populateMap() throws Exception {
-		Collection<Schedule> schedules = Schedule.all();
-		for (Iterator<Schedule> eachSchedule = schedules.iterator(); eachSchedule.hasNext();) {
-			Schedule schedule = (Schedule) eachSchedule.next();
-			for (Iterator<Offering> each = schedule.schedule.iterator(); each.hasNext(); ) {
-				Offering offering = (Offering) each.next();
+	public void findStudentData() throws Exception {
+		List<Schedule> schedules = SchedulePersistence.all();
+		for (Schedule schedule : schedules) {
+			for (Offering offering : schedule.offerings) {
 				populateMapFor(schedule, offering);
 			}
 		}
@@ -35,12 +33,12 @@ public class Report {
 	}
 
 	public void write(StringBuffer buffer) throws Exception {
-		populateMap();
+		findStudentData();
 		Enumeration<Integer> enumeration = (Enumeration<Integer>)offeringToName.keys();
 		while (enumeration.hasMoreElements()) {
 			Integer offeringId = (Integer)enumeration.nextElement();
 			ArrayList<String> list = (ArrayList<String>)offeringToName.get(offeringId);
-			writeOffering(buffer, list, Offering.find(offeringId.intValue()));
+			writeOffering(buffer, list, OfferingPersistence.find(offeringId.intValue()));
 		}
 		buffer.append("Number of scheduled offerings: ");
 		buffer.append(offeringToName.size());

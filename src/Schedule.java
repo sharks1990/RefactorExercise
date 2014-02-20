@@ -24,7 +24,7 @@ public class Schedule {
 
 	public void addOffering(Offering offering) {
 		credits += offering.getCourse().getCredits();
-		offering.add(offering);
+		offerings.add(offering);
 	}
 
 	public void permitExtraCredits(boolean allow) {

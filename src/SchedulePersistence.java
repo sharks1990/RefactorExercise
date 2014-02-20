@@ -99,7 +99,7 @@ public class SchedulePersistence {
 			Statement statement = conn.createStatement();
 			statement.executeUpdate("DELETE FROM schedule WHERE name = '" + schedule.getName() + "';");// Changed to getName()
 			for (int i = 0; i < schedule.offerings.size(); i++) {
-				Offering offering = (Offering) schedule.offerings.get(i);//array added
+				Offering offering = (Offering) schedule.offerings.get(i);//array added--offerings
 				statement.executeUpdate("INSERT INTO schedule (name, offeringId) VALUES('" + schedule.getName() + "','" + offering.getId() + "');");
 			}
 		} 
