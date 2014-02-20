@@ -35,7 +35,7 @@ public class Schedule {
 		ArrayList<String> result = new ArrayList<String>();
 		if (credits < minCredits)
 			result.add("Too few credits");
-		if (credits > maxCredits && !additionalCreditsPermission)
+		if (credits > maxCredits && !additionalCreditsPermission)//changed name
 			result.add("Too many credits");
 		checkDuplicateCourses(result);
 		checkOverlap(result);

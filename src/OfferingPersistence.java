@@ -41,7 +41,7 @@ public class OfferingPersistence {
 			ResultSet result = statement.executeQuery("SELECT * FROM offering WHERE id =" + id + ";");
 			if (result.next() == false)
 				return null;
-			Course course = CoursePersistence.find(result.getString("Course"));	
+			Course course = CoursePersistence.find(result.getString("name"));	//Changed to name and changed course to CoursePersistence
 			String dateTime = result.getString("DaysTimes");
 			conn.close();
 			return new Offering(id, course, dateTime);

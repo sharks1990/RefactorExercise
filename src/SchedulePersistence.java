@@ -79,7 +79,7 @@ public class SchedulePersistence {
 			Statement statement = conn.createStatement();
 			ResultSet results = statement.executeQuery("SELECT DISTINCT Name FROM schedule;");
 			while (results.next())
-			result.add(SchedulePersistence.find(results.getString("Name")));
+			result.add(SchedulePersistence.find(results.getString("Name")));//Changed to SchedulePersistence-- New name
 			//changed Schedule name
 		} 
 		finally {
@@ -97,7 +97,7 @@ public class SchedulePersistence {
 			conn = DriverManager.getConnection(url, "root", "root");
 			Statement statement = conn.createStatement();
 			statement.executeUpdate("DELETE FROM schedule WHERE name = '" + schedule.getName() + "';");// Changed to getName()
-			for (int i = 0; i < schedule.offerings.size(); i++) {
+			for (int i = 0; i < schedule.offerings.size(); i++) {//array list
 				Offering offering = (Offering) schedule.offerings.get(i);//array added--offerings
 				statement.executeUpdate("INSERT INTO schedule (name, offeringId) VALUES('" + schedule.name + "','" + offering.getId() + "');");
 			}

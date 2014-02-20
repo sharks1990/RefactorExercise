@@ -7,7 +7,7 @@ public class Report {
 	Hashtable<Integer, ArrayList<String>> offeringToName = new Hashtable<Integer, ArrayList<String>>();
 
 	public void findStudentData() throws Exception {// Changed name of populate map to something connected to the project
-		List<Schedule> schedules = SchedulePersistence.all();
+		List<Schedule> schedules = SchedulePersistence.all();//Changed to list
 		for (Schedule schedule : schedules) {
 			for (Offering offering : schedule.offerings) {
 				populateMapFor(schedule, offering);
