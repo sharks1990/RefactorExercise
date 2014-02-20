@@ -11,7 +11,7 @@ public class TestSchedule extends TestCase {
 
 	public void testMinCredits() {
 		Schedule schedule = new Schedule("name");
-		Collection<String> analysis = schedule.analysis();
+		List<String> analysis = schedule.analysis();//Changed to list
 		assertEquals(1, analysis.size());
 		assertTrue(analysis.contains("Too few credits"));
 	}
@@ -21,7 +21,7 @@ public class TestSchedule extends TestCase {
 		Offering mwf10 = new Offering(1, cs110, "M10,W10,F10");
 		Schedule schedule = new Schedule("name");
 		schedule.addOffering(mwf10);
-		List<String> analysis = schedule.analysis();
+		List<String> analysis = schedule.analysis();//Changed to list
 		assertEquals(1, analysis.size());
 		assertTrue(analysis.contains("Too few credits"));
 		schedule = new Schedule("name");
@@ -66,8 +66,8 @@ public class TestSchedule extends TestCase {
 		Offering mwf10 = new Offering(1, cs110, "M10,W10,F10");
 		Offering th11 = new Offering(1, cs110, "T11,H11");
 		Schedule schedule = new Schedule("name");
-		schedule.addOffering(mwf10);
-		schedule.addOffering(th11);
+		schedule.addOffering(mwf10);//Changed method name in SchedulePersistence
+		schedule.addOffering(th11);//Changed method name in SchedulePersistence
 		List<String> analysis = schedule.analysis();
 		assertEquals(1, analysis.size());
 		assertTrue(analysis.contains("Same course twice - CS110"));
@@ -95,41 +95,41 @@ public class TestSchedule extends TestCase {
 	}
 
 	public void testCourseCreate() throws Exception {
-		Course c = CoursePersistence.create("CS202", 1);
-		Course c2 = CoursePersistence.find("CS202");
+		Course c = CoursePersistence.create("CS202", 1);//Changed name
+		Course c2 = CoursePersistence.find("CS202");//Changed name
 		assertEquals("CS202", c2.getName());
 		Course c3 = CoursePersistence.find("Nonexistent");
 		assertNull(c3);
 	}
 
 	public void testOfferingCreate() throws Exception {
-		Course c = CoursePersistence.create("CS202", 2);
-		Offering offering = OfferingPersistence.create(c, "M10");
+		Course c = CoursePersistence.create("CS202", 2);//Changed name
+		Offering offering = OfferingPersistence.create(c, "M10");//Changed name
 		assertNotNull(offering);
 	}
 
 	public void testPersistentSchedule() throws Exception {
-		Schedule s = SchedulePersistence.create("Bob");
+		Schedule s = SchedulePersistence.create("Bob");//Changed name
 		assertNotNull(s);
 	}
 
 	public void testScheduleUpdate() throws Exception {
-		Course cs101 = CoursePersistence.create("CS101", 3);
+		Course cs101 = CoursePersistence.create("CS101", 3);//Changed name
 		CoursePersistence.update(cs101);
-		Offering off1 = OfferingPersistence.create(cs101, "M10");
+		Offering off1 = OfferingPersistence.create(cs101, "M10");//Changed name
 		OfferingPersistence.update(off1);
-		Offering off2 = OfferingPersistence.create(cs101, "T9");
+		Offering off2 = OfferingPersistence.create(cs101, "T9");//Changed name
 		OfferingPersistence.update(off2);
-		Schedule s = SchedulePersistence.create("Bob");
+		Schedule s = SchedulePersistence.create("Bob");//Changed name
 		s.addOffering(off1);
 		s.addOffering(off2);
 		SchedulePersistence.update(s);
-		Schedule s2 = SchedulePersistence.create("Alice");
+		Schedule s2 = SchedulePersistence.create("Alice");//Changed name
 		s2.addOffering(off1);
 		SchedulePersistence.update(s2);
-		Schedule s3 = SchedulePersistence.find("Bob");
+		Schedule s3 = SchedulePersistence.find("Bob");//Changed name
 		assertEquals(2, s3.offerings.size());
-		Schedule s4 = SchedulePersistence.find("Alice");
+		Schedule s4 = SchedulePersistence.find("Alice");//Changed name
 		assertEquals(1, s4.offerings.size());
 	}
 }

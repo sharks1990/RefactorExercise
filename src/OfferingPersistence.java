@@ -6,7 +6,7 @@ import java.sql.Statement;
 
 public class OfferingPersistence {
 	
-	static String url = "jdbc:mysql://localhost:3306/refactoring";
+	static String url = "jdbc:mysql://localhost:3306/refactoring";//Changed the localhost address
 	static { 
 		try { 
 			Class.forName("com.mysql.jdbc.Driver"); 
@@ -59,8 +59,8 @@ public class OfferingPersistence {
 		try {
 			conn = DriverManager.getConnection(url, "root", "root");	
 			Statement statement = conn.createStatement();
-			statement.executeUpdate("DELETE FROM Offering WHERE ID=" + offering.getId() + ";");
-			statement.executeUpdate("INSERT INTO Offering VALUES('" + offering.getId() + "','" + offering.getCourse().getName() + "','" + offering.getDaysTimes() + "');");
+			statement.executeUpdate("DELETE FROM Offering WHERE ID=" + offering.getId() + ";");// changed it to offering.getId() method
+			statement.executeUpdate("INSERT INTO Offering VALUES('" + offering.getId() + "','" + offering.getCourse().getName() + "','" + offering.getDaysTimes() + "');");// changed it to offering.getname() and getDaysTimes() method
 		} 
 		finally {
 			try { 

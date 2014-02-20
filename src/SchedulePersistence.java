@@ -5,11 +5,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-
+//Methods from Schedule have being copied into here
 public class SchedulePersistence {
 	
-	static String url = "jdbc:mysql://localhost:3306/refactoring";
+	static String url = "jdbc:mysql://localhost:3306/refactoring";//Changed the localhost address
 	static { 
 		try { 
 			Class.forName("com.mysql.jdbc.Driver"); 
@@ -56,7 +55,7 @@ public class SchedulePersistence {
 			ResultSet result = statement.executeQuery("SELECT * FROM schedule WHERE Name= '" + name + "';");
 			Schedule schedule = new Schedule(name);
 			while (result.next()) {
-				Offering offering = OfferingPersistence.find(result.getInt("OfferingId"));	
+				Offering offering = OfferingPersistence.find(result.getInt("OfferingId"));	//Changed name so it looks in OfferingPersistence instead of Offering
 				schedule.offerings.add(offering);
 			}
 			return schedule;

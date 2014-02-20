@@ -6,7 +6,7 @@ public class Report {
 
 	Hashtable<Integer, ArrayList<String>> offeringToName = new Hashtable<Integer, ArrayList<String>>();
 
-	public void findStudentData() throws Exception {
+	public void findStudentData() throws Exception {// Changed name of populate map to something connected to the project
 		List<Schedule> schedules = SchedulePersistence.all();
 		for (Schedule schedule : schedules) {
 			for (Offering offering : schedule.offerings) {
@@ -33,7 +33,7 @@ public class Report {
 	}
 
 	public void write(StringBuffer buffer) throws Exception {
-		findStudentData();
+		findStudentData();// Changed name
 		Enumeration<Integer> enumeration = (Enumeration<Integer>)offeringToName.keys();
 		while (enumeration.hasMoreElements()) {
 			Integer offeringId = (Integer)enumeration.nextElement();

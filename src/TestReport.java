@@ -22,7 +22,7 @@ public class TestReport extends TestCase {
 		// name changes need... Course to CoursePersistence and Schedule to SchedulePersistence
 		SchedulePersistence.deleteAll();	
 		Course cs101 = CoursePersistence.create("CS101", 3);	
-		CoursePersistence.update(cs101);
+		CoursePersistence.update(cs101);// Eg name has being changed to look for update method in CoursePersistence
 		Offering off1 = OfferingPersistence.create(cs101, "M10");	
 		OfferingPersistence.update(off1);
 		Offering off2 = OfferingPersistence.create(cs101, "T9");	

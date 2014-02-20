@@ -1,5 +1,6 @@
 import java.sql.*;
-
+//Just left with getters and setters
+//Cut and paste create/find/update methods into OfferingPersistence
 public class Offering {
 	private int id;
 	private Course course;

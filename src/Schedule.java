@@ -8,7 +8,7 @@ public class Schedule {
 	int credits = 0;
 	static final int minCredits = 12;
 	static final int maxCredits = 18;
-	boolean additionalCreditsPermission = false;
+	boolean additionalCreditsPermission = false;// Changed name
 
 	ArrayList<Offering> offerings = new ArrayList<Offering>(); 
    // named the array list to offering
@@ -19,7 +19,7 @@ public class Schedule {
 	}
 	
 	public String getName() {
-		return name;
+		return name;// Added getName method
 	}
 
 	public void addOffering(Offering offering) {
@@ -31,7 +31,7 @@ public class Schedule {
 		additionalCreditsPermission = allow;
 	}
 
-	public List<String> analysis() {
+	public List<String> analysis() {// Changed to list.... Items can be added and removed
 		ArrayList<String> result = new ArrayList<String>();
 		if (credits < minCredits)
 			result.add("Too few credits");

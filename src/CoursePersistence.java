@@ -4,7 +4,7 @@ import java.sql.*;
 public class CoursePersistence { 
 	private String name;
 	private int credits;
-	static String url = "jdbc:mysql://localhost:3306/refactoring";
+	static String url = "jdbc:mysql://localhost:3306/refactoring";//Changed the localhost address
 	static { 
 		try { 
 			Class.forName("com.mysql.jdbc.Driver"); 
