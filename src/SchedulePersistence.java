@@ -12,7 +12,9 @@ public class SchedulePersistence {
 	public static void deleteAll() throws Exception {
 		Connection connection = null;
 		try {
+			
 			connection = connectionFactory.getConnection();//new way of connection
+			System.out.println(connection.toString());
 			Statement statement = connection.createStatement();
 			statement.executeUpdate("DELETE FROM schedule;");
 		} 
