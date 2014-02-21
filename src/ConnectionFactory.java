@@ -9,7 +9,7 @@ public class ConnectionFactory {
 
 	private static ConnectionFactory connectionFactory = null;
 
-	private ConnectionFactory() {
+	ConnectionFactory() {
 		try {
 			Class.forName(driverName);
 		} catch (ClassNotFoundException e) {

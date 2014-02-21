@@ -17,4 +17,12 @@ public class Course {
 	public String getName() {
 		return name;
 	}
+	
+	public int setCredits() {// Added setCredits method
+		return credits;
+	}
+
+	public String setName() {// Added setName method
+		return name;
+	}
 }

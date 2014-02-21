@@ -14,13 +14,25 @@ public class Offering {
 
 	public int getId() {
 		return id;
-	}
+	}	
+	
+	public int setId() {// Added setId method
+	return id;
+	}	
 
 	public Course getCourse() {
 		return course;
 	}
+	
+	public Course setCourse() {// Added setCourse method
+		return course;
+	}
 
 	public String getDaysTimes() {
+		return daysTimes;
+	}
+	
+	public String setDaysTimes() {// Added setDaysTimes method
 		return daysTimes;
 	}
 

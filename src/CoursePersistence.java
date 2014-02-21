@@ -4,36 +4,30 @@
 public class CoursePersistence { 
 	private static String name;
 	private static int credits;
-	static String url = "jdbc:mysql://localhost:3306/refactoring";//Changed the localhost address
-	static { 
-		try { 
-			Class.forName("com.mysql.jdbc.Driver"); 
-			}
-		catch (Exception ignored) {} 
-	}
-
+	private static ConnectionFactory connectionFactory = new ConnectionFactory();
+	
 	public static Course create(String name, int credits) throws Exception {
-		Connection conn = null;
+		Connection connection = null;
 		try {
-			conn = DriverManager.getConnection(url, "root", "root");
-			Statement statement = conn.createStatement();
+			connection = connectionFactory.getConnection();//new way of connection
+			Statement statement = connection.createStatement();
 			statement.executeUpdate("DELETE FROM course WHERE name = '" + name + "';");
 			statement.executeUpdate("INSERT INTO course (name, credits) VALUES ('" + name + "', '" + credits + "');");//Added in values for course of names and credits
 			return new Course(name, credits);
 		} 
 		finally {
 			try { 
-				conn.close(); 
+				connection.close(); 
 			} 
 			catch (Exception ignored) {}
 		}
 	}
 
 	public static Course find(String name) {
-		Connection conn = null;
+		Connection connection = null;
 		try {
-			conn = DriverManager.getConnection(url, "root", "root");
-			Statement statement = conn.createStatement();
+			connection = connectionFactory.getConnection();//new way of connection
+			Statement statement = connection.createStatement();
 			ResultSet result = statement.executeQuery("SELECT * FROM course WHERE Name = '" + name + "';");
 			if (!result.next()) return null;
 			int credits = result.getInt("Credits");
@@ -44,23 +38,23 @@ public class CoursePersistence {
 		} 
 		finally {
 			try { 
-				conn.close(); 
+				connection.close(); 
 			} 
 			catch (Exception ignored) {}
 		}
 	}
 
 	public static void update(Course course) throws Exception {
-		Connection conn = null;
+		Connection connection = null;
 		try {
-			conn = DriverManager.getConnection(url, "root", "root");
-			Statement statement = conn.createStatement();
+			connection = connectionFactory.getConnection();//new way of connection
+			Statement statement = connection.createStatement();
 			statement.executeUpdate("DELETE FROM COURSE WHERE name = '" + course.getName() + "';");
 			statement.executeUpdate("INSERT INTO course (name, credits) VALUES('" + course.getName() + "','" + course.getCredits() + "');");//getting errors here
 			} 
 		finally {
 			try { 
-				conn.close(); 
+				connection.close(); 
 			} 
 			catch (Exception ignored) {}
 		}
