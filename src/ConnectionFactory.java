@@ -1,11 +1,12 @@
+//Ronan Sharkey C10303937 DT354 
 import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class ConnectionFactory {
 	String driverName = "com.mysql.jdbc.Driver";
 	String conUrl = "jdbc:mysql://localhost:3306/refactoring";
-	String dbUser = "root";
-	String dbPwd = "root";
+	String dbUser = "root";//username
+	String dbPwd = "root";//password
 	
 
 	

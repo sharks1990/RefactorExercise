@@ -1,4 +1,4 @@
-
+//Ronan Sharkey C10303937 DT354 
 import junit.framework.TestCase;
 
 import java.util.List;
@@ -30,7 +30,7 @@ public class TestReport extends TestCase {
 		Schedule s = SchedulePersistence.create("Bob");	
 		s.offerings.add(off1);
 		s.offerings.add(off2);
-		SchedulePersistence.update( s);
+		SchedulePersistence.update(s);
 		Schedule s2 = SchedulePersistence.create("Alice");	
 		s2.offerings.add(off1);
 		SchedulePersistence.update(s2);

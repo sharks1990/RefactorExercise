@@ -1,4 +1,5 @@
- import java.sql.*;
+//Ronan Sharkey C10303937 DT354 
+import java.sql.*;
 //Created a new class and called it Course Persistence 
 
 public class CoursePersistence { 
